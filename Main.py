@@ -10,17 +10,9 @@ class MovieRequest(BaseModel):
 
 def extract_titles(text):
     matches = re.findall(r"^\s*(?:\d+|[۰-۹]+)[\.\-ـ]?\s*(.+)$", text, re.MULTILINE)
-    titles = []
-
-    for line in matches:
-        line = line.strip()
-        eng_title = re.search(r"\(([^()]+)\)", line)
-        if eng_title:
-            titles.append(eng_title.group(1))
-        elif re.search(r"[a-zA-Z]", line) and len(line.split()) >= 2:
-            titles.append(line)
-
+    titles = [line.strip() for line in matches]
     return titles[:5]
+
 
 # ✅ لیست providerهایی که ترجیح می‌دیم استفاده کنیم
 preferred_providers = [
